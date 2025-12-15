@@ -1,8 +1,51 @@
 import { motion } from "framer-motion";
-import { Code2, Coffee, Terminal, Braces, Database } from "lucide-react";
+import { Coffee, Terminal, Braces, Database } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
+import { useEffect, useState } from "react";
+
+const useTypewriter = (text: string, speed: number = 50, delay: number = 0) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    let currentIndex = 0;
+
+    const startTyping = () => {
+      if (currentIndex < text.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(text.slice(0, currentIndex + 1));
+          currentIndex++;
+          startTyping();
+        }, speed);
+      } else {
+        setIsComplete(true);
+      }
+    };
+
+    const delayTimeout = setTimeout(startTyping, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      clearTimeout(delayTimeout);
+    };
+  }, [text, speed, delay]);
+
+  return { displayedText, isComplete };
+};
 
 const About = () => {
+  const [isInView, setIsInView] = useState(false);
+
+  const codeLines = [
+    { text: 'const developer = {', delay: 0 },
+    { text: `  name: "${personalInfo.name}",`, delay: 800 },
+    { text: `  role: "${personalInfo.title}",`, delay: 1600 },
+    { text: `  location: "${personalInfo.location}",`, delay: 2400 },
+    { text: '  passions: ["code", "design", "coffee"]', delay: 3200 },
+    { text: '};', delay: 4000 },
+  ];
+
   const stats = [
     { label: "Years Experience", value: "3+" },
     { label: "Projects Completed", value: "20+" },
@@ -35,6 +78,7 @@ const About = () => {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
+              onViewportEnter={() => setIsInView(true)}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
               className="relative"
@@ -55,93 +99,16 @@ const About = () => {
                     <span className="text-xs text-muted-foreground ml-2 font-mono">about.tsx</span>
                   </div>
                   
-                  {/* Code content */}
-                  <div className="p-6 font-mono text-sm space-y-3">
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <span className="text-primary">const</span>{" "}
-                      <span className="text-accent">developer</span>{" "}
-                      <span className="text-muted-foreground">=</span>{" "}
-                      <span className="text-muted-foreground">{"{"}</span>
-                    </motion.div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                      viewport={{ once: true }}
-                      className="pl-4"
-                    >
-                      <span className="text-foreground">name</span>
-                      <span className="text-muted-foreground">:</span>{" "}
-                      <span className="text-green-400">"{personalInfo.name}"</span>
-                      <span className="text-muted-foreground">,</span>
-                    </motion.div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.6 }}
-                      viewport={{ once: true }}
-                      className="pl-4"
-                    >
-                      <span className="text-foreground">role</span>
-                      <span className="text-muted-foreground">:</span>{" "}
-                      <span className="text-green-400">"{personalInfo.title}"</span>
-                      <span className="text-muted-foreground">,</span>
-                    </motion.div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                      viewport={{ once: true }}
-                      className="pl-4"
-                    >
-                      <span className="text-foreground">location</span>
-                      <span className="text-muted-foreground">:</span>{" "}
-                      <span className="text-green-400">"{personalInfo.location}"</span>
-                      <span className="text-muted-foreground">,</span>
-                    </motion.div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 1.0 }}
-                      viewport={{ once: true }}
-                      className="pl-4"
-                    >
-                      <span className="text-foreground">passions</span>
-                      <span className="text-muted-foreground">:</span>{" "}
-                      <span className="text-muted-foreground">[</span>
-                      <span className="text-green-400">"code"</span>
-                      <span className="text-muted-foreground">,</span>{" "}
-                      <span className="text-green-400">"design"</span>
-                      <span className="text-muted-foreground">,</span>{" "}
-                      <span className="text-green-400">"coffee"</span>
-                      <span className="text-muted-foreground">]</span>
-                    </motion.div>
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 1.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <span className="text-muted-foreground">{"}"}</span>
-                      <span className="text-muted-foreground">;</span>
-                    </motion.div>
-                    
-                    {/* Blinking cursor */}
-                    <motion.span
-                      animate={{ opacity: [1, 0, 1] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                      className="inline-block w-2 h-4 bg-primary ml-1"
-                    />
+                  {/* Code content with typing effect */}
+                  <div className="p-6 font-mono text-sm space-y-1 min-h-[220px]">
+                    {isInView && codeLines.map((line, index) => (
+                      <TypewriterLine 
+                        key={index} 
+                        text={line.text} 
+                        delay={line.delay}
+                        isLast={index === codeLines.length - 1}
+                      />
+                    ))}
                   </div>
                 </div>
 
@@ -228,6 +195,41 @@ const About = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const TypewriterLine = ({ text, delay, isLast }: { text: string; delay: number; isLast: boolean }) => {
+  const { displayedText, isComplete } = useTypewriter(text, 30, delay);
+  
+  // Syntax highlighting
+  const highlightSyntax = (code: string) => {
+    return code
+      .replace(/(const|let|var)/g, '<span class="text-primary">$1</span>')
+      .replace(/(".*?")/g, '<span class="text-green-400">$1</span>')
+      .replace(/(\[|\]|\{|\}|;|,|:)/g, '<span class="text-muted-foreground">$1</span>')
+      .replace(/(developer|name|role|location|passions)/g, '<span class="text-accent">$1</span>');
+  };
+
+  return (
+    <div className="h-6 flex items-center">
+      <span 
+        dangerouslySetInnerHTML={{ __html: highlightSyntax(displayedText) }} 
+      />
+      {!isComplete && (
+        <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.5, repeat: Infinity }}
+          className="inline-block w-2 h-4 bg-primary ml-0.5"
+        />
+      )}
+      {isComplete && isLast && (
+        <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
+          className="inline-block w-2 h-4 bg-primary ml-0.5"
+        />
+      )}
+    </div>
   );
 };
 
