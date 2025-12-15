@@ -1,65 +1,64 @@
 import { motion } from "framer-motion";
-import { Heart, ArrowUp } from "lucide-react";
-import { personalInfo, navLinks } from "@/data/portfolio";
+import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { personalInfo } from "@/data/portfolio";
 
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const socialLinks = [
+    { icon: Github, href: personalInfo.socialLinks.github, label: "GitHub" },
+    { icon: Linkedin, href: personalInfo.socialLinks.linkedin, label: "LinkedIn" },
+    { icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
+  ];
+
   return (
-    <footer className="py-12 border-t border-border/50 relative">
+    <footer className="py-16 border-t border-border/30">
       <div className="container px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            {/* Logo and copyright */}
-            <div className="text-center md:text-left">
-              <a
-                href="#home"
-                className="font-display text-xl font-bold hover:text-primary transition-colors inline-block mb-2"
+        <div className="flex flex-col items-center gap-6">
+          {/* Logo */}
+          <a
+            href="#home"
+            className="font-display text-2xl font-bold hover:text-primary transition-colors"
+          >
+            {personalInfo.nickname}
+            <span className="text-primary">.</span>
+          </a>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-3 rounded-full glass hover:bg-primary/10 hover:border-primary/50 transition-all"
+                aria-label={social.label}
               >
-                {personalInfo.nickname}
-                <span className="text-primary">.</span>
-              </a>
-              <p className="text-sm text-muted-foreground flex items-center justify-center md:justify-start gap-1">
-                Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> by {personalInfo.name}
-              </p>
-            </div>
-
-            {/* Quick links */}
-            <nav className="hidden md:block">
-              <ul className="flex items-center gap-6">
-                {navLinks.slice(0, 4).map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Back to top */}
-            <motion.button
-              onClick={scrollToTop}
-              whileHover={{ y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-3 rounded-full glass hover:bg-primary/10 hover:border-primary/50 transition-all"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp className="w-5 h-5" />
-            </motion.button>
+                <social.icon className="w-5 h-5" />
+              </motion.a>
+            ))}
           </div>
 
-          {/* Bottom bar */}
-          <div className="mt-8 pt-8 border-t border-border/30 text-center">
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-            </p>
-          </div>
+          {/* Back to top */}
+          <motion.button
+            onClick={scrollToTop}
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-2 rounded-full text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </motion.button>
+
+          {/* Copyright */}
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} {personalInfo.name}
+          </p>
         </div>
       </div>
     </footer>
