@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Coffee, MapPin, Sparkles } from "lucide-react";
+import { Code2, Coffee, Terminal, Braces, Database } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
 
 const About = () => {
@@ -31,7 +31,7 @@ const About = () => {
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Image/Avatar */}
+            {/* Left side - Animated Code Terminal */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -39,28 +39,109 @@ const About = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative aspect-square max-w-md mx-auto">
+              <div className="relative max-w-md mx-auto">
                 {/* Decorative background */}
                 <div className="absolute inset-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
                 
-                {/* Main card */}
-                <div className="relative glass rounded-3xl p-8 h-full flex flex-col justify-center items-center">
-                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary to-accent p-1 mb-6">
-                    <div className="w-full h-full rounded-full bg-card flex items-center justify-center overflow-hidden">
-                      <span className="font-display text-5xl font-bold text-gradient">
-                        BW
-                      </span>
+                {/* Terminal window */}
+                <div className="relative glass rounded-2xl overflow-hidden">
+                  {/* Terminal header */}
+                  <div className="flex items-center gap-2 px-4 py-3 bg-card/50 border-b border-border/50">
+                    <div className="flex gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-green-500/80" />
                     </div>
+                    <span className="text-xs text-muted-foreground ml-2 font-mono">about.tsx</span>
                   </div>
                   
-                  <h3 className="font-display text-2xl font-bold mb-2">
-                    {personalInfo.name}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">{personalInfo.title}</p>
-                  
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span>{personalInfo.location}</span>
+                  {/* Code content */}
+                  <div className="p-6 font-mono text-sm space-y-3">
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="text-primary">const</span>{" "}
+                      <span className="text-accent">developer</span>{" "}
+                      <span className="text-muted-foreground">=</span>{" "}
+                      <span className="text-muted-foreground">{"{"}</span>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      viewport={{ once: true }}
+                      className="pl-4"
+                    >
+                      <span className="text-foreground">name</span>
+                      <span className="text-muted-foreground">:</span>{" "}
+                      <span className="text-green-400">"{personalInfo.name}"</span>
+                      <span className="text-muted-foreground">,</span>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }}
+                      viewport={{ once: true }}
+                      className="pl-4"
+                    >
+                      <span className="text-foreground">role</span>
+                      <span className="text-muted-foreground">:</span>{" "}
+                      <span className="text-green-400">"{personalInfo.title}"</span>
+                      <span className="text-muted-foreground">,</span>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                      viewport={{ once: true }}
+                      className="pl-4"
+                    >
+                      <span className="text-foreground">location</span>
+                      <span className="text-muted-foreground">:</span>{" "}
+                      <span className="text-green-400">"{personalInfo.location}"</span>
+                      <span className="text-muted-foreground">,</span>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 1.0 }}
+                      viewport={{ once: true }}
+                      className="pl-4"
+                    >
+                      <span className="text-foreground">passions</span>
+                      <span className="text-muted-foreground">:</span>{" "}
+                      <span className="text-muted-foreground">[</span>
+                      <span className="text-green-400">"code"</span>
+                      <span className="text-muted-foreground">,</span>{" "}
+                      <span className="text-green-400">"design"</span>
+                      <span className="text-muted-foreground">,</span>{" "}
+                      <span className="text-green-400">"coffee"</span>
+                      <span className="text-muted-foreground">]</span>
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 1.2 }}
+                      viewport={{ once: true }}
+                    >
+                      <span className="text-muted-foreground">{"}"}</span>
+                      <span className="text-muted-foreground">;</span>
+                    </motion.div>
+                    
+                    {/* Blinking cursor */}
+                    <motion.span
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className="inline-block w-2 h-4 bg-primary ml-1"
+                    />
                   </div>
                 </div>
 
@@ -70,7 +151,7 @@ const About = () => {
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute -top-4 -right-4 glass rounded-2xl p-3"
                 >
-                  <Code2 className="w-6 h-6 text-primary" />
+                  <Terminal className="w-6 h-6 text-primary" />
                 </motion.div>
                 
                 <motion.div
@@ -78,7 +159,15 @@ const About = () => {
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                   className="absolute -bottom-4 -left-4 glass rounded-2xl p-3"
                 >
-                  <Sparkles className="w-6 h-6 text-accent" />
+                  <Braces className="w-6 h-6 text-accent" />
+                </motion.div>
+                
+                <motion.div
+                  animate={{ x: [0, 8, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-1/2 -right-6 glass rounded-2xl p-3"
+                >
+                  <Database className="w-5 h-5 text-primary" />
                 </motion.div>
               </div>
             </motion.div>
