@@ -199,7 +199,7 @@ const About = () => {
 };
 
 const TypewriterLine = ({ text, delay, isLast }: { text: string; delay: number; isLast: boolean }) => {
-  const { displayedText, isComplete } = useTypewriter(text, 30, delay);
+  const { displayedText, isComplete } = useTypewriter(text, 60, delay);
   
   // Syntax highlighting
   const highlightSyntax = (code: string) => {
