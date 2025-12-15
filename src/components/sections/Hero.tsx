@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/data/portfolio";
+import { Suspense, lazy } from "react";
+
+const FloatingShapes = lazy(() => import("@/components/three/FloatingShapes"));
 
 const Hero = () => {
   return (
@@ -9,14 +12,16 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px] animate-float delay-300" />
-      </div>
+      {/* 3D Background */}
+      <Suspense fallback={null}>
+        <FloatingShapes />
+      </Suspense>
+
+      {/* Subtle gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
 
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 grid-pattern opacity-30" />
+      <div className="absolute inset-0 grid-pattern opacity-20" />
 
       <div className="container relative z-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
