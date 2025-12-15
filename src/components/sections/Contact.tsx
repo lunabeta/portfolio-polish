@@ -10,8 +10,8 @@ import emailjs from "@emailjs/browser";
 
 // EmailJS Configuration - Get these from https://www.emailjs.com
 const EMAILJS_SERVICE_ID = "service_asrvksp";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_TEMPLATE_ID = "template_bs6ou4s";
+const EMAILJS_PUBLIC_KEY = "Qav08BEdLZJC57wn9";
 
 const Contact = () => {
   const { toast } = useToast();
