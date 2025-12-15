@@ -6,6 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { personalInfo } from "@/data/portfolio";
+import emailjs from "@emailjs/browser";
+
+// EmailJS Configuration - Get these from https://www.emailjs.com
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -30,16 +36,35 @@ const Contact = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: personalInfo.name,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
 
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
 
-    setFormData({ name: "", email: "", message: "" });
-    setIsLoading(false);
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Failed to send",
+        description: "Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const copyEmail = async () => {
