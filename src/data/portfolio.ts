@@ -4,13 +4,14 @@ export const personalInfo = {
   nickname: "Luna",
   title: "Fullstack Developer",
   subtitle: "UI/UX Designer & Creative Developer",
-  email: "betelhemworku@gmail.com",
+  email: "lunaworku@gmail.com",
+  phone: "+251911487718",
   location: "Ethiopia",
-  bio: "I craft seamless digital experiences that blend beautiful design with robust functionality. Passionate about building products that make a difference.",
+  bio: "I'm a Computer Science graduate from Debre Berhan University with practical experience in full-stack development, data recovery, and digital content creation. I've built web platforms using React, Laravel, and MySQL, managed social media for tech brands, and created graphics and videos that drive engagement. With a strong mix of technical skill, creativity, and customer focus, I enjoy turning ideas into real, user-friendly solutions.",
   resumeUrl: "#",
   socialLinks: {
     github: "https://github.com/lunabeta",
-    linkedin: "https://linkedin.com/in/betelhem-worku",
+    linkedin: "https://www.linkedin.com/in/lunabeta",
     twitter: "https://twitter.com/lunabeta",
   },
 };
@@ -28,32 +29,32 @@ export const skills = [
   {
     category: "Frontend",
     icon: "Layout",
-    skills: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Framer Motion"],
+    skills: ["React.js", "Three.js", "Tailwind CSS", "HTML", "CSS", "JavaScript"],
   },
   {
     category: "Backend",
     icon: "Server",
-    skills: ["Node.js", "ASP.NET Core", "PostgreSQL", "REST APIs", "GraphQL"],
+    skills: ["Laravel", "Node.js", "PHP", "MySQL", "PostgreSQL", "Firebase"],
   },
   {
     category: "Design",
     icon: "Palette",
-    skills: ["Figma", "Adobe XD", "UI/UX", "Prototyping", "Design Systems"],
+    skills: ["Adobe Photoshop", "Illustrator", "InDesign", "Adobe XD", "After Effects", "Capcut"],
   },
   {
-    category: "Tools",
+    category: "Tools & Auth",
     icon: "Wrench",
-    skills: ["Git", "Docker", "AWS", "CI/CD", "Agile"],
+    skills: ["Git", "JWT", "Google OAuth", "Redux Toolkit", "Postman", "VS Code"],
   },
 ];
 
 export const projects = [
   {
     id: 1,
-    title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution facilitating international purchases with domestic delivery. Built with ASP.NET Core, featuring secure auth and responsive design.",
+    title: "Online Delala",
+    description: "A property marketplace web app using ReactJs for the front-end and Laravel for the back-end, with MySQL for database management. Features secure login with JWT, Firebase, and Google OAuth.",
     image: "/placeholder.svg",
-    tags: ["C#", ".NET", "EF Core", "Tailwind"],
+    tags: ["React.js", "Laravel", "MySQL", "Firebase", "Tailwind CSS"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
@@ -61,9 +62,9 @@ export const projects = [
   {
     id: 2,
     title: "Auth System",
-    description: "Secure authentication system using Auth0 with OAuth, JWT, MFA, and role-based access control for enterprise applications.",
+    description: "Secure authentication system using JWT, Firebase, and Google OAuth for enterprise applications with role-based access control.",
     image: "/placeholder.svg",
-    tags: ["Auth0", "React", "Node.js", "JWT"],
+    tags: ["JWT", "Firebase", "Google OAuth", "React"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
@@ -71,9 +72,9 @@ export const projects = [
   {
     id: 3,
     title: "Portfolio Website",
-    description: "Modern portfolio showcasing creative work with smooth animations, glassmorphism effects, and responsive design.",
+    description: "Modern portfolio showcasing creative work with smooth animations, glassmorphism effects, and responsive design using Three.js.",
     image: "/placeholder.svg",
-    tags: ["React", "Tailwind", "Framer Motion"],
+    tags: ["React", "Tailwind", "Three.js", "Framer Motion"],
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
@@ -83,26 +84,39 @@ export const projects = [
 export const experiences = [
   {
     id: 1,
-    role: "Fullstack Developer",
-    company: "Tech Company",
-    period: "2023 - Present",
-    description: "Building scalable web applications with React and .NET. Leading frontend architecture decisions and mentoring junior developers.",
-    technologies: ["React", "TypeScript", ".NET", "PostgreSQL"],
+    role: "Multiple Roles: Data Recovery, Social Media, Graphics, Web Dev",
+    company: "Prolab Techworks Solutions",
+    period: "May 2025 – Sep 2025",
+    description: "Data Recovery Specialist working on PC-3000; Social Media Manager creating content and boosting engagement; Graphics Designer creating business cards, brochures, and visual content; Fullstack Web Developer building web solutions.",
+    technologies: ["PC-3000", "Adobe Suite", "React.js", "Social Media"],
   },
   {
     id: 2,
-    role: "Frontend Developer",
-    company: "Digital Agency",
-    period: "2022 - 2023",
-    description: "Developed responsive web applications and collaborated closely with design teams to implement pixel-perfect interfaces.",
-    technologies: ["React", "Vue.js", "Tailwind CSS", "GSAP"],
+    role: "Full-Stack Software Developer (Intern)",
+    company: "AddisWay Technology Solutions",
+    period: "July 2023 – Oct 2024",
+    description: "Created 'Online Delala,' a property marketplace web app using ReactJs and Laravel. Implemented secure login with JWT, Firebase, and Google OAuth. Designed APIs for property listings and managed state with Redux Toolkit.",
+    technologies: ["React.js", "Laravel", "Firebase", "MySQL", "Redux Toolkit", "JWT", "Google OAuth"],
+  },
+];
+
+export const education = [
+  {
+    id: 1,
+    degree: "BSc in Computer Science",
+    institution: "Debre Berhan University",
+    coursework: ["Object Oriented Programming", "Database", "Data Structure and Algorithm", "Software Engineering", "Machine Learning"],
+  },
+  {
+    id: 2,
+    degree: "Graphics Designing",
+    institution: "Boston College",
+    coursework: ["Photoshop", "Illustrator", "InDesign", "Adobe XD", "After Effects"],
   },
   {
     id: 3,
-    role: "UI/UX Designer",
-    company: "Startup",
-    period: "2021 - 2022",
-    description: "Created user-centered designs, wireframes, and prototypes. Conducted user research and usability testing.",
-    technologies: ["Figma", "Adobe XD", "Prototyping", "User Research"],
+    degree: "Dropshipping",
+    institution: "AfroDropshipping",
+    coursework: ["Product Research", "Digital Marketing", "Social Media Management"],
   },
 ];
