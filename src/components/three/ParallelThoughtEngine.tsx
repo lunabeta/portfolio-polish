@@ -9,9 +9,18 @@ interface OrbitModuleProps {
   yOffset?: number;
   children: React.ReactNode;
   name?: string;
+  targetSection?: string;
 }
 
-// Generic orbit wrapper for modules with hover detection
+// Smooth scroll to section helper
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+// Generic orbit wrapper for modules with hover detection and click navigation
 const OrbitModule = ({
   radius,
   speed,
@@ -19,6 +28,7 @@ const OrbitModule = ({
   yOffset = 0,
   children,
   name = "module",
+  targetSection,
 }: OrbitModuleProps) => {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -38,9 +48,17 @@ const OrbitModule = ({
     groupRef.current.scale.setScalar(newScale);
   });
 
+  const handleClick = (e: ThreeEvent<MouseEvent>) => {
+    e.stopPropagation();
+    if (targetSection) {
+      scrollToSection(targetSection);
+    }
+  };
+
   return (
     <group 
       ref={groupRef}
+      onClick={handleClick}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
@@ -366,28 +384,28 @@ const ParallelThoughtEngine = ({ focusBurst }: { focusBurst: boolean }) => {
   return (
     <group>
       {/* Core Orbit - Slow, Stable */}
-      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={0} yOffset={0.5}>
+      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={0} yOffset={0.5} targetSection="skills" name="Frontend">
         <FrontendModule />
       </OrbitModule>
 
-      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={Math.PI * 0.67} yOffset={0.3}>
+      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={Math.PI * 0.67} yOffset={0.3} targetSection="projects" name="Backend">
         <BackendModule />
       </OrbitModule>
 
-      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={Math.PI * 1.33} yOffset={0.7}>
+      <OrbitModule radius={2.5} speed={0.15 * speedMultiplier} offset={Math.PI * 1.33} yOffset={0.7} targetSection="skills" name="Database">
         <DatabaseModule />
       </OrbitModule>
 
       {/* Secondary Orbit - Faster, varied heights */}
-      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={0} yOffset={1.2}>
+      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={0} yOffset={1.2} targetSection="experience" name="Auth">
         <AuthSecurityModule />
       </OrbitModule>
 
-      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={Math.PI * 0.67} yOffset={0.9}>
+      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={Math.PI * 0.67} yOffset={0.9} targetSection="projects" name="Cloud">
         <CloudStorageModule />
       </OrbitModule>
 
-      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={Math.PI * 1.33} yOffset={1.4}>
+      <OrbitModule radius={1.8} speed={0.25 * speedMultiplier} offset={Math.PI * 1.33} yOffset={1.4} targetSection="experience" name="Recovery">
         <DataRecoveryModule />
       </OrbitModule>
     </group>
