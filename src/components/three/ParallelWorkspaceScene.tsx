@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, Suspense } from "react";
+import { useRef, useState, useEffect, Suspense, createContext, useContext } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -6,16 +6,29 @@ import DeveloperGroup from "./DeveloperGroup";
 import ParallelThoughtEngine from "./ParallelThoughtEngine";
 import WorkspacePanels from "./WorkspacePanels";
 
-// Slow orbital camera system
+// Scroll context for sharing scroll state
+const ScrollContext = createContext({ scrollY: 0, setScrollY: (y: number) => {} });
+
+// Slow orbital camera system with scroll-based zoom
 const CameraSystem = () => {
   const { camera } = useThree();
-  const cameraGroupRef = useRef<THREE.Group>(null);
+  const { scrollY } = useContext(ScrollContext);
+  const targetZoom = useRef(7);
+  const currentZoom = useRef(7);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
 
+    // Calculate zoom based on scroll (zoom in as user scrolls)
+    const maxScroll = 500;
+    const zoomRange = 3; // Zoom from 7 to 4
+    targetZoom.current = 7 - (Math.min(scrollY, maxScroll) / maxScroll) * zoomRange;
+    
+    // Smooth interpolation for zoom
+    currentZoom.current += (targetZoom.current - currentZoom.current) * 0.05;
+
     // Slow orbital movement around Y-axis
-    const orbitRadius = 7;
+    const orbitRadius = currentZoom.current;
     const orbitSpeed = 0.03;
     camera.position.x = Math.sin(t * orbitSpeed) * orbitRadius;
     camera.position.z = Math.cos(t * orbitSpeed) * orbitRadius;
@@ -207,23 +220,35 @@ const Scene = () => {
 
 // Main export component
 const ParallelWorkspaceScene = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <Canvas
-        camera={{ position: [0, 2.5, 7], fov: 50 }}
-        dpr={[1, 1.5]}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: "high-performance",
-        }}
-        style={{ background: "transparent" }}
-      >
-        <Suspense fallback={null}>
-          <Scene />
-        </Suspense>
-      </Canvas>
-    </div>
+    <ScrollContext.Provider value={{ scrollY, setScrollY }}>
+      <div className="absolute inset-0 pointer-events-auto">
+        <Canvas
+          camera={{ position: [0, 2.5, 7], fov: 50 }}
+          dpr={[1, 1.5]}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+          }}
+          style={{ background: "transparent" }}
+        >
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        </Canvas>
+      </div>
+    </ScrollContext.Provider>
   );
 };
 

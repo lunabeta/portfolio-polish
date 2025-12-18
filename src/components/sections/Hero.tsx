@@ -56,12 +56,9 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mb-8"
           >
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-muted-foreground mb-4">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-muted-foreground">
               {personalInfo.title}
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto">
-              {personalInfo.bio}
-            </p>
           </motion.div>
 
           {/* CTA buttons */}

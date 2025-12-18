@@ -1,5 +1,5 @@
-import { useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useState } from "react";
+import { useFrame, ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 
 interface OrbitModuleProps {
@@ -8,17 +8,21 @@ interface OrbitModuleProps {
   offset: number;
   yOffset?: number;
   children: React.ReactNode;
+  name?: string;
 }
 
-// Generic orbit wrapper for modules
+// Generic orbit wrapper for modules with hover detection
 const OrbitModule = ({
   radius,
   speed,
   offset,
   yOffset = 0,
   children,
+  name = "module",
 }: OrbitModuleProps) => {
   const groupRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
+  const targetScale = useRef(1);
 
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -26,13 +30,39 @@ const OrbitModule = ({
     groupRef.current.position.x = Math.cos(t) * radius;
     groupRef.current.position.z = Math.sin(t) * radius;
     groupRef.current.position.y = yOffset + Math.sin(t * 2) * 0.1;
+    
+    // Smooth scale animation on hover
+    targetScale.current = hovered ? 1.3 : 1;
+    const currentScale = groupRef.current.scale.x;
+    const newScale = currentScale + (targetScale.current - currentScale) * 0.1;
+    groupRef.current.scale.setScalar(newScale);
   });
 
-  return <group ref={groupRef}>{children}</group>;
+  return (
+    <group 
+      ref={groupRef}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+        document.body.style.cursor = 'auto';
+      }}
+    >
+      {/* Hover glow effect */}
+      {hovered && (
+        <pointLight position={[0, 0, 0]} color="#22d3ee" intensity={2} distance={1.5} />
+      )}
+      {children}
+    </group>
+  );
 };
 
 // Frontend Module - UI planes and component blocks
-const FrontendModule = () => {
+const FrontendModule = ({ hovered }: { hovered?: boolean }) => {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
