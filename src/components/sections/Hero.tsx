@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/data/portfolio";
 import { Suspense, lazy } from "react";
 
-const FloatingShapes = lazy(() => import("@/components/three/FloatingShapes"));
+const ParallelWorkspaceScene = lazy(() => import("@/components/three/ParallelWorkspaceScene"));
 
 const Hero = () => {
   return (
@@ -14,7 +14,7 @@ const Hero = () => {
     >
       {/* 3D Background */}
       <Suspense fallback={null}>
-        <FloatingShapes />
+        <ParallelWorkspaceScene />
       </Suspense>
 
       {/* Subtle gradient overlay for depth */}
