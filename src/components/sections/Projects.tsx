@@ -1,7 +1,25 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/portfolio";
+
+// Import project images
+import aiSnippetGeneratorImg from "@/assets/projects/ai-snippet-generator.png";
+import codeReviewerImg from "@/assets/projects/code-reviewer.png";
+import realtimeChatImg from "@/assets/projects/realtime-chat.png";
+import ethiocraftCollectiveImg from "@/assets/projects/ethiocraft-collective.png";
+import dataRecoveryImg from "@/assets/projects/data-recovery.png";
+import adminDashboardImg from "@/assets/projects/admin-dashboard.png";
+
+// Image mapping
+const projectImages: Record<string, string> = {
+  "ai-snippet-generator": aiSnippetGeneratorImg,
+  "code-reviewer": codeReviewerImg,
+  "realtime-chat": realtimeChatImg,
+  "ethiocraft-collective": ethiocraftCollectiveImg,
+  "data-recovery": dataRecoveryImg,
+  "admin-dashboard": adminDashboardImg,
+};
 
 const Projects = () => {
   return (
@@ -38,24 +56,19 @@ const Projects = () => {
               >
                 <div className="glass rounded-3xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500 hover-lift">
                   {/* Project image */}
-                  <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-display text-4xl font-bold text-foreground/10">
-                        {project.title.charAt(0)}
-                      </span>
-                    </div>
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={projectImages[project.image]}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
                     
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
                       <a
-                        href={project.liveUrl}
-                        className="p-3 rounded-full glass hover:bg-primary/20 transition-colors"
-                        aria-label="View live project"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                      <a
                         href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="p-3 rounded-full glass hover:bg-primary/20 transition-colors"
                         aria-label="View source code"
                       >
@@ -96,7 +109,9 @@ const Projects = () => {
 
                     {/* Link */}
                     <a
-                      href={project.liveUrl}
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all group/link"
                     >
                       View Project
