@@ -26,23 +26,28 @@ const projectImages: Record<string, string> = {
   "cryptography": cryptographyImg,
 };
 
-// Extract unique technologies from all projects
-const getAllTechnologies = () => {
-  const techSet = new Set<string>();
-  projects.forEach((project) => {
-    project.tags.forEach((tag) => techSet.add(tag));
-  });
-  return ["All", ...Array.from(techSet).sort()];
+// Define main filter categories with their associated technologies
+const filterCategories: Record<string, string[]> = {
+  "All": [],
+  "Frontend": ["React", "TypeScript", "JavaScript", "Tailwind CSS", "Next.js", "Blade", "CSS"],
+  "Backend": ["Node.js", "Express", "PHP", "Laravel", "MySQL", "PostgreSQL", "Prisma", "REST API"],
+  "AI / ML": ["AI", "OpenAI", "Machine Learning", "GPT", "NLP"],
+  "Real-time": ["Socket.io", "WebSocket", "Real-time"],
+  "Security": ["Security", "Encryption", "Cryptography", "Authentication"],
 };
+
+const filterTabs = Object.keys(filterCategories);
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const technologies = useMemo(() => getAllTechnologies(), []);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") return projects;
+    const categoryTags = filterCategories[activeFilter] || [];
     return projects.filter((project) =>
-      project.tags.some((tag) => tag.toLowerCase() === activeFilter.toLowerCase())
+      project.tags.some((tag) => 
+        categoryTags.some((catTag) => tag.toLowerCase().includes(catTag.toLowerCase()))
+      )
     );
   }, [activeFilter]);
 
@@ -78,17 +83,17 @@ const Projects = () => {
             viewport={{ once: true }}
             className="flex flex-wrap justify-center gap-2 mb-12"
           >
-            {technologies.map((tech) => (
+            {filterTabs.map((tab) => (
               <button
-                key={tech}
-                onClick={() => setActiveFilter(tech)}
+                key={tab}
+                onClick={() => setActiveFilter(tab)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeFilter === tech
+                  activeFilter === tab
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
                 }`}
               >
-                {tech}
+                {tab}
               </button>
             ))}
           </motion.div>
