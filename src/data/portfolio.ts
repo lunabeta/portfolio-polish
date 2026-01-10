@@ -12,7 +12,6 @@ export const personalInfo = {
   socialLinks: {
     github: "https://github.com/lunabeta",
     linkedin: "https://www.linkedin.com/in/lunabeta",
-    twitter: "https://twitter.com/lunabeta",
   },
 };
 

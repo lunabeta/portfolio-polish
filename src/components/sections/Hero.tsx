@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import { ArrowDown, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/data/portfolio";
 import { Suspense, lazy } from "react";
@@ -86,7 +86,6 @@ const Hero = () => {
             {[
               { icon: Github, href: personalInfo.socialLinks.github, label: "GitHub" },
               { icon: Linkedin, href: personalInfo.socialLinks.linkedin, label: "LinkedIn" },
-              { icon: Twitter, href: personalInfo.socialLinks.twitter, label: "Twitter" },
             ].map((social) => (
               <a
                 key={social.label}
