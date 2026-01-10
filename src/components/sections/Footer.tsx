@@ -1,10 +1,11 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
 
 const Footer = () => {
   const socialLinks = [
     { icon: Github, href: personalInfo.socialLinks.github, label: "GitHub" },
     { icon: Linkedin, href: personalInfo.socialLinks.linkedin, label: "LinkedIn" },
+    { icon: Twitter, href: personalInfo.socialLinks.twitter, label: "Twitter" },
     { icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
   ];
 
