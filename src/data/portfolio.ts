@@ -88,11 +88,11 @@ export const projects = [
   {
     id: 5,
     title: "Data Recovery Web",
-    description: "A professional data recovery service website showcasing recovery solutions for hard drives, SSDs, and other storage devices.",
+    description: "A professional data recovery service website showcasing recovery solutions for hard drives, SSDs, and other storage devices with modern futuristic design.",
     image: "data-recovery",
     tags: ["JavaScript", "Web Design", "Service Platform"],
     githubUrl: "https://github.com/lunabeta/Data.recovery.web",
-    featured: false,
+    featured: true,
   },
   {
     id: 6,
@@ -101,6 +101,24 @@ export const projects = [
     image: "admin-dashboard",
     tags: ["JavaScript", "React", "Dashboard", "Analytics"],
     githubUrl: "https://github.com/lunabeta/admin-dashboard-for-EthioHomeHub",
+    featured: false,
+  },
+  {
+    id: 7,
+    title: "Manager API",
+    description: "A robust REST API management system for handling backend operations, user management, and data processing.",
+    image: "manager-api",
+    tags: ["API", "Backend", "REST", "Node.js"],
+    githubUrl: "https://github.com/lunabeta/Manager-API",
+    featured: false,
+  },
+  {
+    id: 8,
+    title: "Cryptography Tools",
+    description: "A collection of cryptographic utilities for encryption, decryption, and secure data handling with modern algorithms.",
+    image: "cryptography",
+    tags: ["JavaScript", "Security", "Encryption", "Crypto"],
+    githubUrl: "https://github.com/lunabeta/cryptography",
     featured: false,
   },
 ];
