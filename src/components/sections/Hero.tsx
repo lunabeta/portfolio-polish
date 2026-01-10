@@ -86,7 +86,7 @@ const Hero = () => {
             {[
               { icon: Github, href: personalInfo.socialLinks.github, label: "GitHub" },
               { icon: Linkedin, href: personalInfo.socialLinks.linkedin, label: "LinkedIn" },
-              { icon: Mail, href: `mailto:${personalInfo.email}`, label: "Email" },
+              { icon: Mail, href: "#contact", label: "Email" },
             ].map((social) => (
               <a
                 key={social.label}
