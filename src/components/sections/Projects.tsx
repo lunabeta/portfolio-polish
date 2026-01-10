@@ -10,6 +10,8 @@ import realtimeChatImg from "@/assets/projects/realtime-chat.png";
 import ethiocraftCollectiveImg from "@/assets/projects/ethiocraft-collective.png";
 import dataRecoveryImg from "@/assets/projects/data-recovery.png";
 import adminDashboardImg from "@/assets/projects/admin-dashboard.png";
+import managerApiImg from "@/assets/projects/manager-api.png";
+import cryptographyImg from "@/assets/projects/cryptography.png";
 
 // Image mapping
 const projectImages: Record<string, string> = {
@@ -19,13 +21,15 @@ const projectImages: Record<string, string> = {
   "ethiocraft-collective": ethiocraftCollectiveImg,
   "data-recovery": dataRecoveryImg,
   "admin-dashboard": adminDashboardImg,
+  "manager-api": managerApiImg,
+  "cryptography": cryptographyImg,
 };
 
 const Projects = () => {
   return (
     <section id="projects" className="py-24 relative">
       <div className="container px-6">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Section header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,21 +44,24 @@ const Projects = () => {
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
               Selected Projects
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
+              A collection of {projects.length} projects showcasing my expertise in full-stack development, AI integration, and modern web technologies.
+            </p>
             <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </motion.div>
 
           {/* Projects grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {projects.map((project, index) => (
               <motion.article
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="glass rounded-3xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500 hover-lift">
+                <div className="glass rounded-2xl overflow-hidden h-full flex flex-col hover:border-primary/50 transition-all duration-500 hover-lift">
                   {/* Project image */}
                   <div className="relative aspect-video overflow-hidden">
                     <img
@@ -78,8 +85,8 @@ const Projects = () => {
 
                     {/* Featured badge */}
                     {project.featured && (
-                      <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-xs font-medium">
                           Featured
                         </span>
                       </div>
@@ -87,24 +94,29 @@ const Projects = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-6 flex flex-col flex-1">
-                    <h3 className="font-display text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
                       {project.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm mb-4 flex-1">
+                    <p className="text-muted-foreground text-sm mb-3 flex-1 line-clamp-2">
                       {project.description}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 rounded-full bg-secondary/50 text-xs text-muted-foreground"
+                          className="px-2 py-0.5 rounded-full bg-secondary/50 text-xs text-muted-foreground"
                         >
                           {tag}
                         </span>
                       ))}
+                      {project.tags.length > 3 && (
+                        <span className="px-2 py-0.5 rounded-full bg-secondary/50 text-xs text-muted-foreground">
+                          +{project.tags.length - 3}
+                        </span>
+                      )}
                     </div>
 
                     {/* Link */}
