@@ -2,9 +2,6 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/data/portfolio";
-import { Suspense, lazy } from "react";
-
-const ComputerScene = lazy(() => import("@/components/three/ComputerScene"));
 
 const Hero = () => {
   return (
@@ -12,11 +9,6 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* 3D Particle Globe */}
-      <Suspense fallback={null}>
-        <ComputerScene />
-      </Suspense>
-
       {/* Subtle gradient overlay for content readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 pointer-events-none" />
 
