@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
+import logoAvatar from "@/assets/logo-avatar.png";
 
 const Footer = () => {
   const socialLinks = [
@@ -12,10 +13,17 @@ const Footer = () => {
     <footer className="py-8 border-t border-border/20">
       <div className="container px-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Copyright */}
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-          </p>
+          {/* Logo and Copyright */}
+          <div className="flex items-center gap-3">
+            <img 
+              src={logoAvatar} 
+              alt="Betelhem Worku" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+            </p>
+          </div>
 
           {/* Social Links */}
           <div className="flex items-center gap-3">
