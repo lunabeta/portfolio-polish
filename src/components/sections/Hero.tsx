@@ -64,7 +64,7 @@ const Hero = () => {
               <a href="#projects">View My Work</a>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="#contact">Get In Touch</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
             </Button>
           </motion.div>
 
