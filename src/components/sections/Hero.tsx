@@ -12,16 +12,16 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* 3D Background */}
+      {/* 3D Particle Globe */}
       <Suspense fallback={null}>
         <ComputerScene />
       </Suspense>
 
-      {/* Subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+      {/* Subtle gradient overlay for content readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 pointer-events-none" />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 grid-pattern opacity-20" />
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-10" />
 
       <div className="container relative z-10 px-6">
         <div className="max-w-4xl mx-auto text-center">
