@@ -38,7 +38,7 @@ const Hero = () => {
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
           >
             Hi, I'm{" "}
-            <span className="text-gradient">{personalInfo.nickname}</span>
+            <span className="text-gradient">{personalInfo.name}</span>
           </motion.h1>
 
           {/* Subtitle with typing effect simulation */}
@@ -49,7 +49,7 @@ const Hero = () => {
             className="mb-8"
           >
             <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-muted-foreground">
-              {personalInfo.title}
+              And I'm a {personalInfo.title}
             </h2>
           </motion.div>
 
